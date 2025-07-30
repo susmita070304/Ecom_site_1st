@@ -1,12 +1,14 @@
-import { useState } from 'react'
+// src/App.jsx
+import HeroSection from "./HeroSection"
 
 function App() {
-  return(
-    <h1>hiii there </h1>
+  return (
+    <div className="bg-red-200 p-4">
+      <HeroSection />
+    </div>
   )
-  
-
-  
 }
 
 export default App
+
+
