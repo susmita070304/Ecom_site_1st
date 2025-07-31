@@ -1,9 +1,9 @@
 // src/App.jsx
-import HeroSection from "./HeroSection"
+import HeroSection from "./homePage/HeroSection"
 
 function App() {
   return (
-    <div className="bg-red-200 p-4">
+    <div>
       <HeroSection />
     </div>
   )
