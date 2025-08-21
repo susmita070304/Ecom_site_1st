@@ -1,7 +1,5 @@
-// import React from "react";
-import Typed from "react-typed";
-// import { motion } from "framer-motion";
-import React, { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Typed from "typed.js";
 import mainImage from "./main.jpg";
 import herosectionPhoto2 from "./herosectionPhoto2.jpg";
 import herosectionPhoto3 from "./herosectionPhoto3.jpg";
@@ -11,8 +9,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 <FontAwesomeIcon icon={faHouse} />;
-
 export default function HeroSection() {
+  const typedRef = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(typedRef.current, {
+      strings: ["HOME", "NEST", "PARADISE"],
+      typeSpeed: 80,
+      backSpeed: 50,
+      loop: true,
+    });
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
   const images = [
     mainImage,
     herosectionPhoto2,
@@ -42,24 +53,15 @@ export default function HeroSection() {
         <button>Learn More</button>
       </div>
       {/* Moto */}
-      <div className="text-black uppercase text-center absolute left-[171px] top-[590px] w-[1160px] h-24 z-20">
- <span className="text-xl">
-    Get Everything you need to make your house a{" "}
-    <Typed
-      strings={["HOME"]}
-      typeSpeed={10}
-      backSpeed={5}
-      // loop={true} // remove if you only want it once
-      className="text-4xl font-bold"
-    />
-  </span>
-      </div>
-      <div className="plus bg-[#b2ddc2] rounded-full w-[72px] h-[72px] absolute left-[1232px] top-[650px]"></div>
-      <div className="bg-[#ffffff] h-[740px] relative overflow-hidden">
+  <div className="moto relative top-[580px] left-[480px] z-40 text-xl ">
+      Get Everything you need to make your house a{" "}
+      <span ref={typedRef} className="text-4xl font-bold text-black relative"></span>
+    </div>
+      <div className="bg-[#b2ddc2] rounded-full w-[48px] h-[48px] relative left-[1232px] top-[550px] text-5xl font-bold ">
         {/* + Button */}
         <button
           onClick={handleNext}
-          className="bg-[#b2ddc2] rounded-full w-[60px] h-[60px] absolute left-[1232px] top-[550px] text-6xl font-bold "
+          className=" h-[48px] relative top-[px] left-[7px] bottom-[5px] z-50 "
         >
           +
         </button>
