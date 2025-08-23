@@ -65,7 +65,7 @@ export default function HeroSection() {
         {/* + Button */}
         <button
           onClick={handleNext}
-          className=" h-[48px] relative top-[px] left-[7px] bottom-[5px] z-50 "
+          className=" h-[48px] relative top-[px] left-[7px] bottom-[5px] z-40 "
         >
           +
         </button>

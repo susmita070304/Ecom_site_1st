@@ -1,38 +1,49 @@
-import React from "react";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
-<FontAwesomeIcon icon={faHouse} />;
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Fetch user from localStorage when drawer opens
+  const handleDrawerOpen = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
+    setDrawerOpen(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    setDrawerOpen(false);
+  };
+
   const handleHomeClick = () => {
     if (location.pathname === "/") {
-      // Already on home → refresh
       window.location.reload();
     } else {
-      // Navigate to home
       navigate("/");
     }
   };
+
   return (
     <div>
+      {/* Logo */}
       <div
-        className="logo text-left absolute left-[25px] top-[9px] w-[156px] h-[101px] z-50"
+        className="logo text-left absolute left-[25px] top-[9px] w-[156px] h-[101px] z-40"
         style={{ WebkitTextStroke: "1px #000000" }}
       >
         <span>
           <span className="logo block text-xl font-bold">Comfy</span>
-          <span className="logo text-3xl text-[#b2ddc2] font-bold ">Home</span>
+          <span className="logo text-3xl text-[#b2ddc2] font-bold">Home</span>
         </span>
       </div>
+
       {/* Home icon */}
-      <div className="icons absolute right-[178px] top-[10px] w-11 h-11 text-black fill-current z-50">
+      <div className="icons absolute right-[178px] top-[10px] w-11 h-11 text-black fill-current z-40">
         <button onClick={handleHomeClick}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,9 +54,10 @@ export default function Navbar() {
           </svg>
         </button>
       </div>
-      {/* SignUp icon */}
+
+      {/* Profile Icon */}
       <div className="icons absolute right-[129px] top-[10px] w-11 h-11 text-black fill-current z-50">
-        <button>
+        <button onClick={handleDrawerOpen}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 640 640"
@@ -55,9 +67,75 @@ export default function Navbar() {
           </svg>
         </button>
       </div>
-      {/* Share icon*/}
-      <div className="icons absolute right-[78px] top-[10px] w-11 h-11 text-black fill-current z-50">
-        <button>
+
+      {/* Profile Drawer */}
+      <div
+        className={`fixed top-0 right-0 h-full w-[300px] bg-white shadow-lg transform transition-transform duration-300 z-50 ${
+          drawerOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Close Button */}
+        <button
+          className="absolute top-4 right-3 text-xl"
+          onClick={() => setDrawerOpen(false)}
+        >
+          ✖
+        </button>
+
+        {/* Drawer Content */}
+        <div className="p-4 mt-12 flex flex-col gap-4 items-center text-center">
+          {user ? (
+            <>
+              <h2 className="font-semibold text-3xl">Welcome, {user.name}</h2>
+              <p className="text-xl">Number: {user.number}</p>
+              <p className="text-xl">Email: {user.email}</p>
+              <button
+                className="px-2 py-1 text-xl bg-red-500 text-white rounded w-[250px]"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <h2 className="font-semibold text-3xl">Welcome</h2>
+              <button
+                className="px-2 py-1 text-2xl bg-blue-500 text-white rounded w-[250px]"
+                onClick={() => {
+                  navigate("/signup");
+                  setDrawerOpen(false);
+                }}
+              >
+                Sign Up
+              </button>
+              <button
+                className="px-2 py-1 text-xl bg-green-500 text-white rounded w-[250px]"
+                onClick={() => {
+                  navigate("/login");
+                  setDrawerOpen(false);
+                }}
+              >
+                Login
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Share icon */}
+      <div className="icons absolute right-[78px] top-[10px] w-11 h-11 text-black fill-current z-40">
+        <button
+          onClick={() => {
+            navigator.clipboard
+              .writeText(window.location.href)
+              .then(() => {
+                alert("Link copied to your clipboard!");
+              })
+              .catch((err) => {
+                console.error("Failed to copy: ", err);
+              });
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 640 640"
@@ -67,34 +145,26 @@ export default function Navbar() {
           </svg>
         </button>
       </div>
-      {/* Hamburger Menu Button */}
-      <div className="absolute right-6 top-4 z-50">
+
+      {/* Hamburger Menu */}
+      <div className="absolute right-6 top-4 z-40">
         <button onClick={() => setIsOpen(true)} className="w-10 h-10">
-          {/* 3 lines icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 640 512"
             className="w-full h-full fill-black"
           >
-            <path
-              d="M0 96C0 78.3 14.3 64 32 64H608c17.7 0 32 14.3 32 32s-14.3 
-            32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 
-            14.3-32 32-32H608c17.7 0 32 14.3 32 32s-14.3 
-            32-32 32H32c-17.7 0-32-14.3-32-32zm32 
-            128H608c17.7 0 32 14.3 32 32s-14.3 32-32 
-            32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32z"
-            />
+            <path d="M0 96C0 78.3 14.3 64 32 64H608c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H608c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zm32 128H608c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
           </svg>
         </button>
       </div>
 
-      {/* Drawer */}
+      {/* Hamburger Drawer */}
       <div
-        className={`fixed top-12 right-0 h-60 w-64 bg-white shadow-lg transform transition-transform duration-300 z-50
-          ${isOpen ? "translate-x-0" : "translate-x-full  "}
-        `}
+        className={`fixed top-12 right-0 h-60 w-64 bg-white shadow-lg transform transition-transform duration-300 z-40 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        {/* Close button */}
         <button
           onClick={() => setIsOpen(false)}
           className="absolute top-4 right-4 text-xl text-right pr-3 bg-black text-white w-60"
@@ -102,7 +172,6 @@ export default function Navbar() {
           ✕
         </button>
 
-        {/* Menu links */}
         <div className="mt-16 flex flex-col items-center space-y-6">
           <button
             onClick={() => {
@@ -130,9 +199,10 @@ export default function Navbar() {
             className="text-lg font-semibold"
           >
             FAQ
-          </button>
+                      </button>
         </div>
       </div>
     </div>
   );
 }
+

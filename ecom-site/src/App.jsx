@@ -7,6 +7,9 @@ import FAQ from "./homePage/FAQ";
 import HeroSection from "./homePage/HeroSection";
 import Aboutus from "./homePage/Aboutus";
 import Navbar from "./homePage/Navbar";
+import Signup from "./homePage/Signup";
+import Login from "./homePage/Login";
+import Password from "./homePage/Password";
 import Products from "./varieties/Products";
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
         <Route path="/feedback" element={<Feedback />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/password" element={<Password />} />
       </Routes>
     </Router>
   );
