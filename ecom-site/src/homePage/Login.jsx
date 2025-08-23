@@ -18,12 +18,6 @@ function Login() {
       return;
     }
 
-    // If user is in signupData but password not set yet
-    if (!savedUser.password) {
-      alert("Please set your password first.");
-      navigate("/password");
-      return;
-    }
 
     // Validate credentials
     if (
