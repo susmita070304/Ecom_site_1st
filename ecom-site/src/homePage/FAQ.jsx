@@ -2,7 +2,8 @@ import React from "react";
 
 const FAQ = () => {
   return (
-    <div className="p-8">
+    <div className="bg-[#b2ddc2] w-[50rem] m-64 px-32 py-16 border-25 border-black rounded-3xl border-solid">
+    <div className=" w-[35rem] h-[15rem]">
       <h1 className="text-3xl font-bold mb-4">Frequently Asked Questions</h1>
       <div className="mb-4">
         <h2 className="text-xl font-semibold">Q1: What is this website about?</h2>
@@ -15,6 +16,7 @@ const FAQ = () => {
       <div className="mb-4">
         <h2 className="text-xl font-semibold">Q3: How do I give feedback?</h2>
         <p>Go to the Feedback page and submit your comments.</p>
+      </div>
       </div>
     </div>
   );
