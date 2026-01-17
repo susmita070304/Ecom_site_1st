@@ -48,7 +48,7 @@ export default function HeroSection() {
       <div className="frontImage bg-[#b2ddc2] border-8 border-black w-[894px] h-[486px] absolute left-[262px] top-[75px] rounded-3xl "></div>
 
       <div className="buyNow text-black text-left font-['Roboto-SemiBold',_sans-serif] text-2xl font-semibold absolute left-[339px] top-[662px] w-[156px] h-[101px] z-20">
-        <button>Buy Now</button>
+        <button onClick={() => navigate("/products")}><Link to="/products">Buy Now</Link></button>
       </div>
       <div className="learnMore text-black text-left font-['Roboto-SemiBold',_sans-serif] text-2xl font-semibold absolute left-[955px] top-[662px] w-[156px] h-[115px] z-20">
         <button onClick={() => navigate("/about")}><Link to="/about">Learn More</Link></button>
