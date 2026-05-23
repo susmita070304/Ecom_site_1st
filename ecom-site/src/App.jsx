@@ -12,6 +12,7 @@ import Login from "./homePage/Login";
 import Password from "./homePage/Password";
 import Products from "./varieties/Products";
 
+
 function App() {
   return (
     <Router>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/password" element={<Password />} />
+       
       </Routes>
     </Router>
   );
