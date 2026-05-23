@@ -19,25 +19,28 @@ export default function Products() {
           style={{ backgroundImage: `url(${productsLogo})` }}
         ></div>
 
-        {/* Products Row Container */}
         <div className="flex flex-row items-center justify-center gap-40 mt-10">
           
-          {/* Curtains Column (Photo + Text) */}
+          {/* Sofas Column */}
           <div className="flex flex-col items-center">
             <div
-              className="h-[285px] w-[400px] bg-contain bg-center bg-no-repeat bg-black rounded-3xl cursor-pointer"
-              style={{ backgroundImage: `url(${curtainsImage})` }}
-            ></div>
-            <h1 className="text-4xl font-bold mt-4 font-serif text-black">Curtains</h1>
-          </div>
-
-          {/* Sofas Column (Photo + Text) */}
-          <div className="flex flex-col items-center">
-            <div
-              className="h-[285px] w-[400px] bg-contain bg-center bg-no-repeat bg-black rounded-3xl cursor-pointer"
+              className="h-[285px] w-[400px] bg-cover bg-center bg-no-repeat border-solid border-[3px] border-black rounded-[0px_30px_160px_0px] cursor-pointer overflow-hidden"
               style={{ backgroundImage: `url(${sofaImage})` }}
             ></div>
-            <h1 className="text-4xl font-bold mt-4 font-serif text-black">Sofas</h1>
+            <button className="w-[300px] py-4 bg-[#BCE3C9] border-[2px] border-black text-4xl font-bold uppercase tracking-wide mt-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              Sofa
+            </button>
+          </div>
+
+          {/* Curtains Column */}
+          <div className="flex flex-col items-center">
+            <div
+              className="h-[285px] w-[400px] bg-cover bg-center bg-no-repeat border-solid border-[3px] border-black rounded-[160px_0px_0px_0px] cursor-pointer overflow-hidden"
+              style={{ backgroundImage: `url(${curtainsImage})` }}
+            ></div>
+            <button className="w-[300px] py-4 bg-[#BCE3C9] border-[2px] border-black text-4xl font-bold uppercase tracking-wide mt-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              Curtains
+            </button>
           </div>
 
         </div>
