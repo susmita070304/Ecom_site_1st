@@ -11,7 +11,7 @@ import Signup from "./homePage/Signup";
 import Login from "./homePage/Login";
 import Password from "./homePage/Password";
 import Products from "./varieties/Products";
-
+import ProductDetails from "./productsDetails/productDetails";
 
 function App() {
   return (
@@ -32,7 +32,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/password" element={<Password />} />
-       
+        <Route path="/product/:id" element={<ProductDetails />} />
       </Routes>
     </Router>
   );
