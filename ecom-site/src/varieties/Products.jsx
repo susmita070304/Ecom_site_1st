@@ -36,7 +36,7 @@ export default function Products() {
                 style={{ backgroundImage: `url(${sofaImage})` }}
               ></div>
 
-              <button className="w-[300px] py-4 bg-[#BCE3C9] border-[2px] border-black text-4xl font-bold uppercase tracking-wide mt-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <button className="w-[300px] py-4 bg-gray-100 border-[2px] border-black text-4xl font-bold uppercase tracking-wide mt-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
 
                 Sofa
 
@@ -57,7 +57,7 @@ export default function Products() {
                 style={{ backgroundImage: `url(${curtainsImage})` }}
               ></div>
 
-              <button className="w-[300px] py-4 bg-[#BCE3C9] border-[2px] border-black text-4xl font-bold uppercase tracking-wide mt-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
+              <button className="w-[300px] py-4 bg-gray-100 border-[2px] border-black text-4xl font-bold uppercase tracking-wide mt-8 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all">
 
                 Curtains
 
