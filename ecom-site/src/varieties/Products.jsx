@@ -32,7 +32,7 @@ export default function Products() {
             <div className="flex flex-col items-center">
 
               <div
-                className="h-[285px] w-[400px] bg-cover bg-center bg-no-repeat border-solid border-[3px] border-black rounded-[0px_30px_160px_0px] cursor-pointer overflow-hidden"
+                className="h-[285px] w-[400px] bg-cover bg-center bg-no-repeat border-solid border-[3px] border-black rounded-[0px_0px_160px_0px] cursor-pointer overflow-hidden"
                 style={{ backgroundImage: `url(${sofaImage})` }}
               ></div>
 
