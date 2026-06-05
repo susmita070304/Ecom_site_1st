@@ -8,13 +8,12 @@ function Signup() {
   const [address, setAddress] = useState("");
   const [building, setBuilding] = useState("");
   const [landmark, setLandmark] = useState("");
+  const [password, setPassword] = useState("");
 
-  // State for error messages
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    // If the user is already fully signed up, redirect to login page
     const existingUser = JSON.parse(localStorage.getItem("user"));
     if (existingUser) {
       alert("You are already signed up. Redirecting to login page...");
@@ -22,141 +21,102 @@ function Signup() {
     }
   }, [navigate]);
 
-  const handleNext = () => {
+  const handleSignup = () => {
     let tempErrors = {};
 
-    // Validate text fields (no numbers allowed)
-    const textRegex = /^[^0-9]+$/;
     if (!name) tempErrors.name = "Name is required";
-    else if (!textRegex.test(name)) tempErrors.name = "Name cannot contain numbers";
+    if (!email) tempErrors.email = "Email is required";
+    else if (!/^\S+@\S+\.\S+$/.test(email)) tempErrors.email = "Invalid email format";
+
+    if (!number) tempErrors.number = "Phone number is required";
+    else if (!/^[0-9]+$/.test(number)) tempErrors.number = "Phone must contain only digits";
 
     if (!address) tempErrors.address = "Address is required";
-    else if (!textRegex.test(address)) tempErrors.address = "Address cannot contain numbers";
+    if (!address) tempErrors.address = "Address is required";
+    else if (!/^[A-Za-z\s]+$/.test(address)) tempErrors.address = "Address cannot contain numbers";
 
-    // Validate building number (only digits)
-    const buildingRegex = /^[0-9]+$/;
-    if (!building) tempErrors.building = "Building Number is required";
-    else if (!buildingRegex.test(building)) tempErrors.building = "Building Number must contain only digits";
+    if (!building) tempErrors.building = "Building number is required";
+    if (!building) tempErrors.building = "Building number is required";
+    else if (!/^[0-9]+$/.test(building)) tempErrors.building = "Building number must contain only digits";
 
     if (!landmark) tempErrors.landmark = "Landmark is required";
-    else if (!textRegex.test(landmark)) tempErrors.landmark = "Landmark cannot contain numbers";
 
-    // Validate number field
-    const numberRegex = /^[0-9]+$/;
-    if (!number) tempErrors.number = "Number is required";
-    else if (!numberRegex.test(number)) tempErrors.number = "Number must contain only digits";
+    if (!password) tempErrors.password = "Password is required";
+    else if (password.length < 8) tempErrors.password = "Password must be at least 8 characters";
+    if (!password) tempErrors.password = "Password is required";
+    else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)
+    ) {
+      tempErrors.password =
+        "Password must be at least 8 characters, include uppercase, lowercase, number, and special character";
+    }
 
-    // Validate email
-    if (!email) tempErrors.email = "Email is required";
+
 
     setErrors(tempErrors);
-
-    // Stop if there are errors
     if (Object.keys(tempErrors).length > 0) return;
 
-    // Check if email or number already exists in fully signed up user
     const existingUser = JSON.parse(localStorage.getItem("user"));
-    if (existingUser) {
-      if (existingUser.email === email || existingUser.number === number) {
-        alert("An account with this email or phone number already exists. Redirecting to login page...");
-        navigate("/login");
-        return;
-      }
+    if (existingUser && (existingUser.email === email || existingUser.number === number)) {
+      alert("An account with this email or phone already exists. Redirecting to login...");
+      navigate("/login");
+      return;
     }
 
-    // Check if email or number already exists in temporary signup (partial signup)
-    const tempSignup = JSON.parse(localStorage.getItem("signupData"));
-    if (tempSignup) {
-      if (tempSignup.email === email || tempSignup.number === number) {
-        alert("You have already started signing up with this email or phone. Redirecting to password page...");
-        navigate("/login");
-        return;
-      }
-    }
+    const user = {
+      name,
+      email,
+      number,
+      address,
+      building,
+      landmark,
+      password,
+      expiry: new Date().getTime() + 24 * 60 * 60 * 1000 // 1 day session
+    };
 
-    // Store signup info temporarily
-    const signupData = { name, email, number, address, building, landmark };
-    localStorage.setItem("signupData", JSON.stringify(signupData));
+    localStorage.setItem("user", JSON.stringify(user));
 
-    // Navigate to Password page
-    navigate("/password");
+    alert("Signup successful! Please log in.");
+    navigate("/login");
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-3">
       <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
 
-      <div className="flex flex-col w-64">
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="border p-2"
-        />
-        {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
-      </div>
+      <input type="text" placeholder="Name" value={name}
+        onChange={(e) => setName(e.target.value)} className="border p-2 w-64" />
+      {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
 
-      <div className="flex flex-col w-64">
-        <input
-          type="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="border p-2"
-        />
-        {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
-      </div>
+      <input type="email" placeholder="E-mail" value={email}
+        onChange={(e) => setEmail(e.target.value)} className="border p-2 w-64" />
+      {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
 
-      <div className="flex flex-col w-64">
-        <input
-          type="text"
-          placeholder="Number"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          className="border p-2"
-        />
-        {errors.number && <span className="text-red-500 text-sm">{errors.number}</span>}
-      </div>
+      <input type="text" placeholder="Phone Number" value={number}
+        onChange={(e) => setNumber(e.target.value)} className="border p-2 w-64" />
+      {errors.number && <span className="text-red-500 text-sm">{errors.number}</span>}
 
-      <div className="flex flex-col w-64">
-        <input
-          type="text"
-          placeholder="Address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          className="border p-2"
-        />
-        {errors.address && <span className="text-red-500 text-sm">{errors.address}</span>}
-      </div>
+      <input type="text" placeholder="Address" value={address}
+        onChange={(e) => setAddress(e.target.value)} className="border p-2 w-64" />
+      {errors.address && <span className="text-red-500 text-sm">{errors.address}</span>}
 
-      <div className="flex flex-col w-64">
-        <input
-          type="text"
-          placeholder="Building Number"
-          value={building}
-          onChange={(e) => setBuilding(e.target.value)}
-          className="border p-2"
-        />
-        {errors.building && <span className="text-red-500 text-sm">{errors.building}</span>}
-      </div>
+      <input type="text" placeholder="Building Number" value={building}
+        onChange={(e) => setBuilding(e.target.value)} className="border p-2 w-64" />
+      {errors.building && <span className="text-red-500 text-sm">{errors.building}</span>}
 
-      <div className="flex flex-col w-64">
-        <input
-          type="text"
-          placeholder="Landmark"
-          value={landmark}
-          onChange={(e) => setLandmark(e.target.value)}
-          className="border p-2"
-        />
-        {errors.landmark && <span className="text-red-500 text-sm">{errors.landmark}</span>}
-      </div>
+      <input type="text" placeholder="Landmark" value={landmark}
+        onChange={(e) => setLandmark(e.target.value)} className="border p-2 w-64" />
+      {errors.landmark && <span className="text-red-500 text-sm">{errors.landmark}</span>}
 
-      <button
-        onClick={handleNext}
-        className="bg-blue-500 text-white px-4 py-2 rounded mt-3"
-      >
-        Next
+
+      <input type="password" placeholder="Password" value={password}
+        onChange={(e) => setPassword(e.target.value)} className="border p-2 w-64" />
+      {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
+
+
+      <button onClick={handleSignup}
+        className="bg-blue-500 text-white px-4 py-2 rounded mt-3">
+        Sign Up
       </button>
     </div>
   );

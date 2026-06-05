@@ -7,10 +7,7 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Check both completed users and signupData
-    const savedUser =
-      JSON.parse(localStorage.getItem("user")) ||
-      JSON.parse(localStorage.getItem("signupData"));
+    const savedUser = JSON.parse(localStorage.getItem("user"));
 
     if (!savedUser) {
       alert("No account found. Please sign up first.");
@@ -18,13 +15,16 @@ function Login() {
       return;
     }
 
-
     // Validate credentials
     if (
       savedUser.email === email &&
       savedUser.password === password &&
       savedUser.expiry > new Date().getTime()
     ) {
+      
+      savedUser.expiry = new Date().getTime() + 24 * 60 * 60 * 1000; 
+      localStorage.setItem("user", JSON.stringify(savedUser));
+
       alert("Login successful!");
       navigate("/");
     } else if (savedUser.expiry <= new Date().getTime()) {
@@ -41,7 +41,7 @@ function Login() {
       <h2 className="text-2xl font-bold mb-4">Login</h2>
       <input
         type="text"
-        placeholder="Email or Phone"
+        placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className="border p-2 mb-3 w-64"
