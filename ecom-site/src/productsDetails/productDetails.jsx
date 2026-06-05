@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
+
 import products from "../productData/product";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
+
 
 export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems);
   const [showImage, setShowImage] = useState(false);       // product popup
   const [showFeatureImage, setShowFeatureImage] = useState(null); // feature popup
 
   const productId = Number(id);
   const product = products.find((item) => item.id === productId);
+  const isInCart = cartItems.some(
+  (item) => item.id === productId
+);
 
   if (!product) {
     return (
@@ -91,9 +99,27 @@ export default function ProductDetails() {
             <p className="text-2xl mt-10 leading-relaxed text-gray-600 font-serif">
               {product.description}
             </p>
-            <button className="mt-12 px-10 py-4 border-[3px] border-black bg-[#BCE3C9] rounded-xl text-3xl font-bold hover:scale-105 transition-all font-serif">
-              Add to Cart
-            </button>
+            <div className="flex gap-4 mt-12">
+  <button
+    onClick={() => {
+  if (!isInCart) {
+    dispatch(addToCart(product));
+  }
+}}
+    className="px-6 py-2 border-[3px] border-black bg-[#BCE3C9] rounded-xl text-xl font-bold hover:scale-105 transition-all font-serif"
+  >
+    Add to Cart
+  </button>
+
+  {isInCart && (
+    <button
+  onClick={() => navigate("/Cart")}
+  className="px-4 py-2 border-[3px] border-green-600 text-green-600 rounded-xl text-xl font-bold font-serif"
+>
+  Already In Cart
+</button>
+  )}
+</div>
           </div>
         </div>
 
