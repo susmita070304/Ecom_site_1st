@@ -18,7 +18,7 @@ export default function Cart() {
   return total + price * item.quantity;
 }, 0);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen font-serif">
+    <div className="flex flex-col items-center justify-center min-h-screen font-serif mt-20">
       {cartItems.length === 0 ? (
         <h2 className="text-2xl font-bold mb-4">Cart is empty</h2>
       ) : (
@@ -27,7 +27,17 @@ export default function Cart() {
             <div
               key={item.id}
               className="flex justify-between items-center border-b py-4"
-            >
+            > 
+                <div className="text-2xl font-semibold">
+                
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-20 h-20 object-cover rounded-lg"
+                  />
+              </div>
+
+
               <h2 className="text-2xl font-semibold">
                 {item.name}
               </h2>
@@ -61,8 +71,8 @@ export default function Cart() {
       <h2 className="text-3xl font-bold text-right mt-8">
   Total: ₹{totalPrice.toLocaleString()}
 </h2>
-      <div className="flex justify-end mt-10">
-        <button className="bg-[#BCE3C9] px-8 py-3 rounded-lg text-xl font-bold border-2 border-black">
+      <div className="flex justify-end mt-10 ">
+        <button className=" fixed bg-[#BCE3C9] px-20 py-3 rounded-lg text-3xl font-bold border-2 border-black bottom-6 right-6  hover:scale-105 font-serif">
           Buy Now
         </button>
       </div>
